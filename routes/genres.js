@@ -3,13 +3,15 @@ const express = require('express');
 const router = express.Router();
 const { Genre, validateGenre } = require('../models/genre');
 const {Admin} = require('../middlewares/admin');
+const asyncMiddleware = require('../middlewares/async');
 
-router.get('/', async (req,res)=>{
+
+router.get('/', asyncMiddleware(async (req, res) => {
     let result = await Genre.find().sort('name');
     res.send(result);
-});
+}));
 
-router.post('/', [Auth, Admin], async (req,res) => {
+router.post('/', [Auth, Admin], asyncMiddleware(async (req,res) => {
     const { error } = validateGenre(req.body);
     if(error){
         res.status(400).send(error.details[0].message);
@@ -20,7 +22,7 @@ router.post('/', [Auth, Admin], async (req,res) => {
     });
     let result = await genre.save();
     res.send(result);
-});
+}));
 
 router.put('/:id', async (req,res) => {
     let { error } = validateGenre(req.body);

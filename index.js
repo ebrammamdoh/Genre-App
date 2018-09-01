@@ -12,6 +12,7 @@ const rentalRouters = require('./routes/rentals');
 const userRouters = require('./routes/users');
 const authRouters = require('./routes/auth');
 const {Auth} = require('./middlewares/auth');
+const error = require('./middlewares/error');
 
 if(!config.get('jwtPrivateKey')){
     console.error('falat error in evirnoment');
@@ -30,6 +31,8 @@ app.use('/api/movies', moviesRouters);
 app.use('/api/rentals', rentalRouters);
 app.use('/api/users', userRouters);
 app.use('/api/auth', authRouters);
+
+app.use(error);
 // app.use(Auth);
 
 const port = process.env.PORT || 3000;
