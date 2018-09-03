@@ -1,3 +1,5 @@
+require('express-async-errors'); 
+
 const express = require('express');
 const app = express();
 const bodyparser = require('body-parser');
@@ -13,6 +15,7 @@ const userRouters = require('./routes/users');
 const authRouters = require('./routes/auth');
 const {Auth} = require('./middlewares/auth');
 const error = require('./middlewares/error');
+
 
 if(!config.get('jwtPrivateKey')){
     console.error('falat error in evirnoment');
