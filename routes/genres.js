@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const { Genre, validateGenre } = require('../models/genre');
 const {Admin} = require('../middlewares/admin');
+
+//custom function to apply try catch, next inevery route handler
 const asyncMiddleware = require('../middlewares/async');
 
 
